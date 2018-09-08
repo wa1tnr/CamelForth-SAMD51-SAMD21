@@ -1,0 +1,151 @@
+# ainsuCFxd51-a
+
+# NEWS
+
+CamelForth
+
+  Please use ALL CAPS when addressing CamelForth.
+
+http://camelforth.com/news.php
+
+CamelForth in C!
+Misc: Brad R @ Friday 15 December 2017 - 14:38:49
+
+# Status
+
+CamelForth is running well on ATSAMD51J19A.
+
+This repository is a rebuild of all sources, such that as
+few changes as practical were made to CamelForth source
+code files.
+
+# Build Environment
+
+This is an Atmel Start based project for Atmel ATSAMD51J19A,
+and runs on the Adafruit Metro M4 Express target board (with
+plans for additional boards).
+
+Pinmuxing is for that specific board.
+
+A recent (08 September 2018) generation of source Atmel Start
+project pack (*atzip) was created to ensure compatibility with
+the Atmel Start online configuration tool.
+
+The program leverages the USART on the SAMD51.  The reference
+environment is a host PC, running Debian GNU/Linux 9.5, which
+talks to the Adafruit SAMD51 target via Silabs CP2104.  The
+CP2104 is an USB to UART gateway chip.
+
+The Adafruit PiUART is the reference implementation for CP2104.
+
+It takes three wires to interconnect to CP104 (TX, RX and ground).
+
+Host system may be any host that can talk to the PiUART on an USB
+port.  This requires a driver from Silicon Laboratories (Silabs)
+and is already included in Linux (it's an older chip, so support
+should be available on many platforms).
+
+Firmware upload is accomplished leveraging the Arduino IDE's
+implementation of BOSSAC.  There is a recent BOSSAC in the
+Arduino IDE that will upload to the SAMD51 target.  The included
+project's Makefile (which begins as an Atmel Start Makefile)
+has direct support for an 'install' target.
+
+Building and intalling constists of:
+
+   make clean; make; make install
+
+at the command line.  There is also a 'make checkout' target
+in the makefile, to assist git users who need that function
+(to clean up residual files built during 'make').
+
+There are color escape sequences included in the Makefile.  At
+the time this writing, no mechanism is offered, to suppress them.
+An xterm supports them fully; any shell environment that already
+shows texts in different colors (gcc arm uses them, also) will
+likely be compatible with their use, here.
+
+It should be no problem to connect the target board to any serial
+terminal that uses 3.3v logic levels, directly to the Metro M4
+Express TX and RX pins, and talk that way.  The PiUART is a
+convenience, only (it allows the host PC to leverage its USB port
+to talk to the Metro M4's USART at 3.3v logic levels).
+
+This firmware is built on Debian Linux 9.5 (Linux kernel 4.9.0-7-amd64).
+Many other environments should also function correctly; the build
+environment centers on Atmel Start generated projects and their
+requirements (visit http://start.atmel.com/ for more information).
+
+Toolchain is the usual ARM gcc - same exact build environment as
+Adafruit's CircuitPython.
+
+For CircuitPython's build evironment (and instructions):
+
+    SEE: https://learn.adafruit.com/building-circuitpython/manual-setup
+
+For the ARM gcc toolchain (including GDB):
+
+    SEE: https://developer.arm.com/open-source/gnu-toolchain/gnu-rm/downloads
+
+The Makefile in this project is a modification of Atmel Start's
+version, with which it is fundamentally compatible; except for the
+way the Adafruit bootloader is handled:
+
+UNTESTED EDITS:
+
+show where the .ld file lives and what's different about it, so that
+it loads the Atmel Start code correctly in the SAMD51's memory map:
+
+  $ cat ../this_Repository/gcc/Makefile | egrep bootl
+-T"../gcc/gcc/samd51j19a_flash_with_bootloader.ld" \
+
+ $ cat ../this_Repository/gcc/gcc/samd51j19a_flash_with_bootloader.ld | sed 46q | tail -12
+
+/* Memory Spaces Definitions */
+MEMORY
+{
+  rom      (rx)  : ORIGIN = 0x00004000, LENGTH = 0x00080000-0x4000
+  ram      (rwx) : ORIGIN = 0x20000000, LENGTH = 0x00030000
+  bkupram  (rwx) : ORIGIN = 0x47000000, LENGTH = 0x00002000
+  qspi     (rwx) : ORIGIN = 0x04000000, LENGTH = 0x01000000
+}
+
+/* The stack size used by the application. NOTE: you need to adjust according to your application. */
+STACK_SIZE = DEFINED(STACK_SIZE) ? STACK_SIZE : DEFINED(__stack_size__) ? __stack_size__ : 0xC000;
+
+# Flashing the Firmware
+
+This is done using bossac, from the command line.
+
+A Makefile target called 'install' runs a shell script on 
+the host Linux PC that launches bossac (reuses the existing
+Arduino IDE bossac, which already works fine with SAMD51).
+
+ $ ./scripts/_bossac_local.sh ./AtmelStart.bin (is what's in the Makefile)
+
+ $ cat ../this_Repository/gcc/scripts/_bossac_local.sh  (excerpt):
+
+Call with one argument - the path/file.bin (not .uf2) to upload using bossac
+
+if ! [ $1 ]; then
+   echo no args.  Exiting; fi
+   ~/.arduino15/packages/arduino/tools/bossac/1.8.0-48-gb176eee/bossac \
+    -i -d --port=/dev/ttyACM0 -U -i --offset=0x4000 -e -w -v ${1} -R  # .bin not .elf
+
+The  --offset is specific to Adafruit SAMD51 boards (to skip
+over the bootloader).
+
+Bossac may be in more than one version in the Arduino IDE
+sub-tree; 1.8.0-48 was present and was used, here.
+
+SPECIAL NOTE:
+
+A full pass through this README.md was done on 08 September 2018.
+It is (temporarily!) largely factual, and current.
+
+Sat Sep  8 22:27:04 UTC 2018
+On branch master
+
+ $ cat ./README.md | sed 149q | md5sum
+
+5d22fb5f34205ff3f812f203eb19d065
