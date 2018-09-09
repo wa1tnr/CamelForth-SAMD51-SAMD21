@@ -219,6 +219,17 @@ endif
 $(SUB_DIRS):
 	$(MK_DIR) "$@"
 
+install:
+	@echo -n "[0;1;33;40msleeping 5 seconds.."
+	@sleep 5
+	@echo    ".  Done.[0m"
+	@sleep 1
+	# running target '[0;1;34mmake install[0m' now
+	@sleep 1
+	@echo "[0;1;32;40m./scripts/_bossac_local.sh [0;1;36;40m./AtmelStart.bin[0m"
+	@sleep 1
+	@./scripts/_bossac_local.sh ./AtmelStart.bin
+
 clean:
 	rm -f $(OBJS_AS_ARGS)
 	rm -f $(OUTPUT_FILE_PATH)
