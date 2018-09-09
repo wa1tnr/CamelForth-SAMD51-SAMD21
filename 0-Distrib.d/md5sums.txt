@@ -1,0 +1,1 @@
+fed224d01de34ad5d527525f97bcb2f6  samd51_usart_08_sep_aa.atzip
