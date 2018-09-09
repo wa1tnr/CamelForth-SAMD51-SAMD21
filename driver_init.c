@@ -38,7 +38,7 @@ void USART_0_init(void)
 
 void system_init(void)
 {
-	init_mcu();
+	// init_mcu();  // has to be disabled.  for now.  wa1tnr (don't know why)
 
 	// GPIO on PA16
 
