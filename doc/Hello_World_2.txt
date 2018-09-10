@@ -1,0 +1,21 @@
+Mon Sep 10 23:54:28 UTC 2018
+
+
+Program is configured for 38400 bps speed.
+Target MCU board is Adafruit Metro M4 Express.
+UART pins TX and RX used with CP2104 bridge.
+On branch excellent_progress_b      Mon Sep 10 19:30:42 UTC 2018
+
+   ainsuForth MTX  
+
+(leaving ainsuForth MTX)
+CamelForth in C - SAMD51 testing
+ Sample printf() pseudo-interpreter for testing.  
+
+ 1 7 14 21
+
+printf() exerciser.  This commit is a good place to
+examine progress forwards or backwards from the first
+commit to the final working program (yet to be
+committed here).
+
