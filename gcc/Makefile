@@ -41,6 +41,8 @@ examples \
 hpl/gclk \
 hpl/oscctrl \
 gcc/gcc \
+src/cf \
+src/cf/atsamdx1 \
 hpl/core \
 hpl/cmcc
 
@@ -65,8 +67,6 @@ hal/src/hal_init.o \
 gcc/gcc/startup_samd51.o \
 main.o \
 hpl/osc32kctrl/hpl_osc32kctrl.o \
-examples/driver_examples.o \
-driver_init.o \
 hpl/sercom/hpl_sercom.o \
 hal/src/hal_gpio.o \
 hal/utils/src/utils_event.o \
@@ -74,7 +74,11 @@ hal/src/hal_sleep.o \
 hal/src/hal_cache.o \
 hpl/cmcc/hpl_cmcc.o \
 atmel_start.o \
+src/cf/atsamdx1/usart_gateway.o \
 hal/src/hal_atomic.o
+
+# examples/driver_examples.o \
+# driver_init.o \
 
 OBJS_AS_ARGS +=  \
 "hal/src/hal_io.o" \
@@ -96,8 +100,6 @@ OBJS_AS_ARGS +=  \
 "gcc/gcc/startup_samd51.o" \
 "main.o" \
 "hpl/osc32kctrl/hpl_osc32kctrl.o" \
-"examples/driver_examples.o" \
-"driver_init.o" \
 "hpl/sercom/hpl_sercom.o" \
 "hal/src/hal_gpio.o" \
 "hal/utils/src/utils_event.o" \
@@ -105,7 +107,11 @@ OBJS_AS_ARGS +=  \
 "hal/src/hal_cache.o" \
 "hpl/cmcc/hpl_cmcc.o" \
 "atmel_start.o" \
+"src/cf/atsamdx1/usart_gateway.o" \
 "hal/src/hal_atomic.o"
+
+# "examples/driver_examples.o" \
+# "driver_init.o" \
 
 # List the dependency files
 DEPS := $(OBJS:%.o=%.d)
@@ -129,17 +135,19 @@ DEPS_AS_ARGS +=  \
 "hal/src/hal_init.d" \
 "hal/src/hal_usart_sync.d" \
 "hpl/mclk/hpl_mclk.d" \
-"driver_init.d" \
 "hpl/osc32kctrl/hpl_osc32kctrl.d" \
 "main.d" \
-"examples/driver_examples.d" \
 "hal/src/hal_cache.d" \
 "hal/src/hal_sleep.d" \
 "hpl/sercom/hpl_sercom.d" \
 "hal/src/hal_gpio.d" \
 "hal/src/hal_atomic.d" \
 "hpl/oscctrl/hpl_oscctrl.d" \
+"src/cf/atsamdx1/usart_gateway.d" \
 "atmel_start.d"
+
+# "driver_init.d" \
+# "examples/driver_examples.d" \
 
 OUTPUT_FILE_NAME :=AtmelStart
 QUOTE := "
@@ -187,7 +195,7 @@ $(OUTPUT_FILE_PATH): $(OBJS)
 	@echo ARM/GNU C Compiler
 	$(QUOTE)arm-none-eabi-gcc$(QUOTE) -x c -mthumb -DDEBUG -Os -ffunction-sections -mlong-calls -g3 $(CFLAGS)       -c -std=gnu99 \
 -D__SAMD51J19A__ -mcpu=cortex-m4 -mfloat-abi=softfp -mfpu=fpv4-sp-d16 \
--I"../" -I"../config" -I"../examples" -I"../hal/include" -I"../hal/utils/include" -I"../hpl/cmcc" -I"../hpl/core" -I"../hpl/dmac" -I"../hpl/gclk" -I"../hpl/mclk" -I"../hpl/osc32kctrl" -I"../hpl/oscctrl" -I"../hpl/pm" -I"../hpl/port" -I"../hpl/ramecc" -I"../hpl/sercom" -I"../hri" -I"../" -I"../CMSIS/Include" -I"../include"  \
+-I"../" -I"../config" -I"../examples" -I"../src/cf" -I"../src/cf/atsamdx1" -I"../hal/include" -I"../hal/utils/include" -I"../hpl/cmcc" -I"../hpl/core" -I"../hpl/dmac" -I"../hpl/gclk" -I"../hpl/mclk" -I"../hpl/osc32kctrl" -I"../hpl/oscctrl" -I"../hpl/pm" -I"../hpl/port" -I"../hpl/ramecc" -I"../hpl/sercom" -I"../hri" -I"../" -I"../CMSIS/Include" -I"../include"  \
 -MD -MP -MF "$(@:%.o=%.d)" -MT"$(@:%.o=%.d)" -MT"$(@:%.o=%.o)"  -o "$@" "$<"
 	@echo Finished building: $<
 
@@ -196,7 +204,7 @@ $(OUTPUT_FILE_PATH): $(OBJS)
 	@echo ARM/GNU Assembler
 	$(QUOTE)arm-none-eabi-as$(QUOTE) -x c -mthumb -DDEBUG -Os -ffunction-sections -mlong-calls -g3 $(CFLAGS)       -c -std=gnu99 \
 -D__SAMD51J19A__ -mcpu=cortex-m4 -mfloat-abi=softfp -mfpu=fpv4-sp-d16 \
--I"../" -I"../config" -I"../examples" -I"../hal/include" -I"../hal/utils/include" -I"../hpl/cmcc" -I"../hpl/core" -I"../hpl/dmac" -I"../hpl/gclk" -I"../hpl/mclk" -I"../hpl/osc32kctrl" -I"../hpl/oscctrl" -I"../hpl/pm" -I"../hpl/port" -I"../hpl/ramecc" -I"../hpl/sercom" -I"../hri" -I"../" -I"../CMSIS/Include" -I"../include"  \
+-I"../" -I"../config" -I"../examples" -I"../src/cf" -I"../src/cf/atsamdx1" -I"../hal/include" -I"../hal/utils/include" -I"../hpl/cmcc" -I"../hpl/core" -I"../hpl/dmac" -I"../hpl/gclk" -I"../hpl/mclk" -I"../hpl/osc32kctrl" -I"../hpl/oscctrl" -I"../hpl/pm" -I"../hpl/port" -I"../hpl/ramecc" -I"../hpl/sercom" -I"../hri" -I"../" -I"../CMSIS/Include" -I"../include"  \
 -MD -MP -MF "$(@:%.o=%.d)" -MT"$(@:%.o=%.d)" -MT"$(@:%.o=%.o)"  -o "$@" "$<"
 	@echo Finished building: $<
 
@@ -205,7 +213,7 @@ $(OUTPUT_FILE_PATH): $(OBJS)
 	@echo ARM/GNU Preprocessing Assembler
 	$(QUOTE)arm-none-eabi-gcc$(QUOTE) -x c -mthumb -DDEBUG -Os -ffunction-sections -mlong-calls -g3 $(CFLAGS)       -c -std=gnu99 \
 -D__SAMD51J19A__ -mcpu=cortex-m4 -mfloat-abi=softfp -mfpu=fpv4-sp-d16 \
--I"../" -I"../config" -I"../examples" -I"../hal/include" -I"../hal/utils/include" -I"../hpl/cmcc" -I"../hpl/core" -I"../hpl/dmac" -I"../hpl/gclk" -I"../hpl/mclk" -I"../hpl/osc32kctrl" -I"../hpl/oscctrl" -I"../hpl/pm" -I"../hpl/port" -I"../hpl/ramecc" -I"../hpl/sercom" -I"../hri" -I"../" -I"../CMSIS/Include" -I"../include"  \
+-I"../" -I"../config" -I"../examples" -I"../src/cf" -I"../src/cf/atsamdx1" -I"../hal/include" -I"../hal/utils/include" -I"../hpl/cmcc" -I"../hpl/core" -I"../hpl/dmac" -I"../hpl/gclk" -I"../hpl/mclk" -I"../hpl/osc32kctrl" -I"../hpl/oscctrl" -I"../hpl/pm" -I"../hpl/port" -I"../hpl/ramecc" -I"../hpl/sercom" -I"../hri" -I"../" -I"../CMSIS/Include" -I"../include"  \
 -MD -MP -MF "$(@:%.o=%.d)" -MT"$(@:%.o=%.d)" -MT"$(@:%.o=%.o)"  -o "$@" "$<"
 	@echo Finished building: $<
 
