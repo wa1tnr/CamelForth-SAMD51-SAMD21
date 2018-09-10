@@ -75,6 +75,7 @@ hal/src/hal_cache.o \
 hpl/cmcc/hpl_cmcc.o \
 atmel_start.o \
 src/cf/atsamdx1/usart_gateway.o \
+src/cf/stand-in-TEMP.o \
 hal/src/hal_atomic.o
 
 # examples/driver_examples.o \
@@ -108,6 +109,7 @@ OBJS_AS_ARGS +=  \
 "hpl/cmcc/hpl_cmcc.o" \
 "atmel_start.o" \
 "src/cf/atsamdx1/usart_gateway.o" \
+"src/cf/stand-in-TEMP.o" \
 "hal/src/hal_atomic.o"
 
 # "examples/driver_examples.o" \
@@ -144,6 +146,7 @@ DEPS_AS_ARGS +=  \
 "hal/src/hal_atomic.d" \
 "hpl/oscctrl/hpl_oscctrl.d" \
 "src/cf/atsamdx1/usart_gateway.d" \
+"src/cf/stand-in-TEMP.d" \
 "atmel_start.d"
 
 # "driver_init.d" \
