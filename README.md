@@ -1,4 +1,4 @@
-# ainsuCFxd51-a
+# ainsu-CamelForth-SAMD51-port
 
 # NEWS
 
@@ -138,14 +138,10 @@ over the bootloader).
 Bossac may be in more than one version in the Arduino IDE
 sub-tree; 1.8.0-48 was present and was used, here.
 
-SPECIAL NOTE:
+Mon Sep 10 19:39:37 UTC 2018
 
-A full pass through this README.md was done on 08 September 2018.
-It is (temporarily!) largely factual, and current.
-
-Sat Sep  8 22:27:04 UTC 2018
-On branch master
+On branch ?? TODO
 
  $ cat ./README.md | sed 149q | md5sum
 
-5d22fb5f34205ff3f812f203eb19d065
+5d2   INVALID MD5SUM   3eb19d065
