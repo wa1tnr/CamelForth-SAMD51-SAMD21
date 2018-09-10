@@ -6,19 +6,20 @@
  * to avoid losing it when reconfiguring.
  */
 
-#include "driver_init.h"
-#include <peripheral_clk_config.h>
-#include <utils.h>
-#include <hal_init.h>
+// #include "driver_init.h"
+// #include <peripheral_clk_config.h>
+// #include <utils.h>
+// #include <hal_init.h>
 
-struct usart_sync_descriptor USART_0;
+// struct usart_sync_descriptor USART_0;
 
+/*
 void USART_0_PORT_init(void)
 {
 
-	gpio_set_pin_function(PA22, PINMUX_PA22C_SERCOM3_PAD0);
+	gpio_set_pin_function(PA22, PINMUX_PA22C_SERCOM3_PAD0); // TX
 
-	gpio_set_pin_function(PA23, PINMUX_PA23C_SERCOM3_PAD1);
+	gpio_set_pin_function(PA23, PINMUX_PA23C_SERCOM3_PAD1); // RX
 }
 
 void USART_0_CLOCK_init(void)
@@ -35,10 +36,12 @@ void USART_0_init(void)
 	usart_sync_init(&USART_0, SERCOM3, (void *)NULL);
 	USART_0_PORT_init();
 }
+*/
 
+/*
 void system_init(void)
 {
-	// init_mcu();  // has to be disabled.  for now.  wa1tnr (don't know why)
+	// init_mcu();  TODO wa1tnr 27 Aug: why does this inhibit 'things'? (everything iirc)
 
 	// GPIO on PA16
 
@@ -53,6 +56,20 @@ void system_init(void)
 	                   false);
 
 	gpio_set_pin_function(PA16, GPIO_PIN_FUNCTION_OFF);
+
+	// GPIO on PA19
+
+	// Set pin direction to output
+	gpio_set_pin_direction(PA19, GPIO_DIRECTION_OUT);
+
+	gpio_set_pin_level(PA19,
+	                   // <y> Initial level
+	                   // <id> pad_initial_level
+	                   // <false"> Low
+	                   // <true"> High
+	                   false);
+
+	gpio_set_pin_function(PA19, GPIO_PIN_FUNCTION_OFF);
 
 	// GPIO on PB14
 
@@ -70,3 +87,4 @@ void system_init(void)
 
 	USART_0_init();
 }
+*/
