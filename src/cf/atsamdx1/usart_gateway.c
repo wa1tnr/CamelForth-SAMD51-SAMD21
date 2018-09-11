@@ -4,7 +4,7 @@
 #include "usart_ini.h"
 #include "atsamdx1.h"
 
-extern char ch[];
+// extern ch[];
 extern int read_ln;
 extern void queryKey(void);
 extern void camelforth(void);
