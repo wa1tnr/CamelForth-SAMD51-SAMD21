@@ -6,6 +6,7 @@
  * to avoid losing it when reconfiguring.
  */
 
+/*
 #include "driver_init.h"
 #include <peripheral_clk_config.h>
 #include <utils.h>
@@ -70,3 +71,4 @@ void system_init(void)
 
 	USART_0_init();
 }
+*/
