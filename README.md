@@ -51,6 +51,12 @@ Arduino IDE that will upload to the SAMD51 target.  The included
 project's Makefile (which begins as an Atmel Start Makefile)
 has direct support for an 'install' target.
 
+Firmware is uploaded on the usual target USB port - CP2104 is
+only for the project itself (during runtime).  During development,
+is is usual to run two USB cables; one for CP2104 and the other
+directly to the target (to accomplish firmware upload using the
+bossac tool).
+
 Building and intalling constists of:
 
    make clean; make; make install
