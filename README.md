@@ -53,7 +53,7 @@ has direct support for an 'install' target.
 
 Firmware is uploaded on the usual target USB port - CP2104 is
 only for the project itself (during runtime).  During development,
-is is usual to run two USB cables; one for CP2104 and the other
+it is usual to run two USB cables; one for CP2104 and the other
 directly to the target (to accomplish firmware upload using the
 bossac tool).
 
