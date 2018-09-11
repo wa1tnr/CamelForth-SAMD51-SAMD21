@@ -1,3 +1,47 @@
+/****h* camelforth/samd51.inc
+ *
+ * from:
+ ****h* camelforth/tivaio.c
+ *
+ * NAME
+ *  samd51.inc
+ * DESCRIPTION
+ *  Terminal I/O, MCU initialization, and main entry point for
+ *  CamelForth in C, for the ATSAMD51J19A Adafruit Metro M4 Express target board.
+ * SYNOPSIS
+ *  Provides the functions
+ *      void putch(char c)      write one character to terminal
+ *      char getch(void)        await/read one character from keyboard
+ *      int getquery(void)      return true if keyboard char available
+ *      void initTermios(void)  configure terminal for Forth
+ *      void resetTermios(void) reset terminal configuration, if req'd
+ *      int main(void)          main entry point for SAMD51
+ * AUTHORS
+ *  Brad Rodriguez
+ *  wa1tnr
+ ******
+ * LICENSE TERMS
+ *  CamelForth in C
+ *  copyright (c) 2016,2017 Bradford J. Rodriguez.
+ *
+ *  This program is free software; you can redistribute it and/or modify
+ *  it under the terms of the GNU General Public License as published by
+ *  the Free Software Foundation; either version 3 of the License, or
+ *  (at your option) any later version.
+ *
+ *  This program is distributed in the hope that it will be useful,
+ *  but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *  GNU General Public License for more details.
+ *
+ *  You should have received a copy of the GNU General Public License
+ *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ *
+ *  Commercial inquiries should be directed to the author at
+ *  115 First St., #105, Collingwood, Ontario L9Y 4W3 Canada
+ *  or via email to bj@camelforth.com
+ */
+
 #include <atmel_start.h>
 #include <stdio.h> // trouble
 #include "atsamdx1.h"
