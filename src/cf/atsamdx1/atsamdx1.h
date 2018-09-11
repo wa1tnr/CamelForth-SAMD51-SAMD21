@@ -12,8 +12,6 @@
 
 extern struct io_descriptor *io;
 extern char print_string[stack_buffer_length];
-// extern void USART_0_example_upper_camelforth(void);
 extern void USART_0_setup_local(void);
-// extern void USART_0_example_lower_camelforth(void);
 extern void USART_0_loop_camelforth(void);
 char print_string[stack_buffer_length];
