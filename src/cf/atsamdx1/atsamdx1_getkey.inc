@@ -1,7 +1,7 @@
 // Tue Sep 11 00:49:37 UTC 2018
 
-#include <atmel_start.h>
 #include "atsamdx1.h"
+// #include <atmel_start.h>
 
 char ch[0]; // holds an 8-bit keystroke
 int read_ln = 0; // how many chars were read
