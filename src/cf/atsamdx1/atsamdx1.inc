@@ -76,11 +76,8 @@ int length_print_string = 0;
 // #define getch UARTgetc
 #define getch getKey
 
+/*
 char cfc;
-
-/* a more elegant approach seems likely here */
-
-/* also, new names for things here */
 
 void ucf_emit(void) {
     uint32_t  rbyte = 0;
@@ -98,6 +95,13 @@ void ucf_emit(void) {
 void putch(char c) {
     cfc = c;
     ucf_emit();
+}
+*/
+
+void putch(char c) {
+    char *p;
+    p = &c;
+    io_write(io, (uint8_t *) p, 1);
 }
 
 int getquery(void) {
