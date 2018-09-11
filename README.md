@@ -57,7 +57,7 @@ it is usual to run two USB cables; one for CP2104 and the other
 directly to the target (to accomplish firmware upload using the
 bossac tool).
 
-Building and intalling constists of:
+Building and installing consists of:
 
    make clean; make; make install
 
@@ -85,7 +85,7 @@ requirements (visit http://start.atmel.com/ for more information).
 Toolchain is the usual ARM gcc - same exact build environment as
 Adafruit's CircuitPython.
 
-For CircuitPython's build evironment (and instructions):
+For CircuitPython's build environment (and instructions):
 
     SEE: https://learn.adafruit.com/building-circuitpython/manual-setup
 
@@ -144,10 +144,10 @@ over the bootloader).
 Bossac may be in more than one version in the Arduino IDE
 sub-tree; 1.8.0-48 was present and was used, here.
 
-Mon Sep 10 19:39:37 UTC 2018
+Tue Sep 11 03:09:53 UTC 2018
 
-On branch ?? TODO
+On branch camelforth
 
- $ cat ./README.md | sed 149q | md5sum
+ $ cat ./README.md | sed 151q | md5sum
 
-5d2   INVALID MD5SUM   3eb19d065
+32d3540cbb28dffd4cbfe880ca492638
