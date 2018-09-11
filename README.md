@@ -1,4 +1,4 @@
-# ainsu-CamelForth-SAMD51-port
+# CamelForth-SAMD51
 
 # NEWS
 
@@ -38,7 +38,7 @@ CP2104 is an USB to UART gateway chip.
 
 The Adafruit PiUART is the reference implementation for CP2104.
 
-It takes three wires to interconnect to CP104 (TX, RX and ground).
+It takes three wires to interconnect to CP2104 (TX, RX and ground).
 
 Host system may be any host that can talk to the PiUART on an USB
 port.  This requires a driver from Silicon Laboratories (Silabs)
