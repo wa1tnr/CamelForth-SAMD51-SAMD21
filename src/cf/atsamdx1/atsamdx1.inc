@@ -46,8 +46,24 @@
 #include <stdio.h> // trouble
 #include "atsamdx1.h"
 
-extern void queryKey(void);
+extern char ch[];
 extern int read_ln;
+extern unsigned int getKey(void); // hardware-independent wrapper
+extern void queryKey(void);
+
+/*
+#include <stdint.h>
+#include <stdbool.h>
+*/
+
+// #define NULL 0  // already defined for Atmel Start and gcc:
+
+// lib/gcc/arm-none-eabi/7.3.1/include/stddef.h:406:0: note: this is the location of the previous definition
+// #define NULL ((void *)0)
+
+/*
+ * Terminal I/O functions
+ */
 
 int length_print_string = 0;
 
@@ -98,19 +114,32 @@ int getquery(void) {
     return l_read_ln; // can be more than 1
 }
 
-// void interpreter(void);         /* forward reference */
+/****f* main/main
+ * NAME
+ *  main
+ * SYNOPSIS
+ *  int main(void)
+ * DESCRIPTION
+ *  Main program, entered after an MCU reset.
+ ******
+ */
 
-void interpreter_jj(void);
+void interpreter(void);         /* forward reference */
 
-#define WAIT_A_WHILE 20100123
-void camelforth(void) {
-    print_this("(leaving ainsuForth MTX)", 24);
-    print_this("\nCamelForth in C - SAMD51 testing\n", 34);
+void camelforth(void)
+{
+ // while (1) {     /* loop in case interpreter() ever terminates */
+        fg_white(); bg_blue();
+        print_this("(leaving ainsuForth MTX)", 24); bg_black();
+        print_this("\n", 1); fg_yellow();
+        print_this("\nCamelForth in C - SAMD51 testing\n", 34);
 
-    // interpreter();
-    interpreter_jj();
+   // ------------------
+        interpreter();
+   // ------------------
 
-    for (volatile int i = WAIT_A_WHILE; i > 0; i--) {
-    }
-    print_this("(entering ainsuForth MTX)", 25);
+        color_reset(); bg_black(); bold_italics(); fg_white();
+        print_this("(entering ainsuForth MTX)", 25);
+        color_reset(); bg_black(); fg_yellow();
+ // }
 }
