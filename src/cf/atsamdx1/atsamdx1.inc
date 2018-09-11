@@ -58,9 +58,6 @@ extern void queryKey(void);
 
 // #define NULL 0  // already defined for Atmel Start and gcc:
 
-// lib/gcc/arm-none-eabi/7.3.1/include/stddef.h:406:0: note: this is the location of the previous definition
-// #define NULL ((void *)0)
-
 /*
  * Terminal I/O functions
  */
@@ -79,13 +76,17 @@ int length_print_string = 0;
 // #define getch UARTgetc
 #define getch getKey
 
-char cfcfc;
+char cfc;
+
+/* a more elegant approach seems likely here */
+
+/* also, new names for things here */
 
 void ucf_emit(void) {
     uint32_t  rbyte = 0;
     int       char_r   =  '0';
     char      *cbyte;
-    rbyte = cfcfc;
+    rbyte   = cfc;
 
     cbyte = (char*) &rbyte;
     int df = (uint32_t) cbyte;
@@ -95,7 +96,7 @@ void ucf_emit(void) {
 }
 
 void putch(char c) {
-    cfcfc = c;
+    cfc = c;
     ucf_emit();
 }
 
@@ -126,20 +127,9 @@ int getquery(void) {
 
 void interpreter(void);         /* forward reference */
 
-void camelforth(void)
-{
- // while (1) {     /* loop in case interpreter() ever terminates */
-        fg_white(); bg_blue();
-        print_this("(leaving ainsuForth MTX)", 24); bg_black();
-        print_this("\n", 1); fg_yellow();
-        print_this("\nCamelForth in C - SAMD51 testing\n", 34);
-
-   // ------------------
+void camelforth(void) {
+    while (1) {     /* loop in case interpreter() ever terminates */
+    print_this("\nCamelForth in C - SAMD51 testing\n", 34);
         interpreter();
-   // ------------------
-
-        color_reset(); bg_black(); bold_italics(); fg_white();
-        print_this("(entering ainsuForth MTX)", 25);
-        color_reset(); bg_black(); fg_yellow();
- // }
+    }
 }
