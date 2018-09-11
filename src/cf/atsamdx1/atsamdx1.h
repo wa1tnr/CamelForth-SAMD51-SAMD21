@@ -1,7 +1,7 @@
 #include <string.h>
 
 #define timeStamp(t,l) \
-    "Tue Sep 11 01:15:11 UTC 2018\n\n", 32
+    "Tue Sep 11 18:07:18 UTC 2018\n\n", 32
 // current target branch:
 #define branchStamp(b,l) \
     "On branch camelforth    ", 24
