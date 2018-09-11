@@ -5,7 +5,8 @@
 extern "C" {
 #endif
 
-#include "driver_init.h"
+// #include "driver_init.h"
+#include "usart_ini.h"
 
 /**
  * Initializes MCU, drivers and middleware in the project
