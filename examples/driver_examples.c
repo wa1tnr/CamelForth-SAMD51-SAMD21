@@ -6,6 +6,7 @@
  * to avoid losing it when reconfiguring.
  */
 
+// This file is ignored in the present project.  10 SEPTEMBER 2018
 #include "driver_examples.h"
 #include "driver_init.h"
 #include "utils.h"
