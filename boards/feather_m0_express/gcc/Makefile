@@ -46,6 +46,8 @@ examples \
 hpl/gclk \
 samd21a/gcc/gcc \
 src \
+src/cf \
+src/cf/atsamdx1 \
 hpl/core
 
 # List the object files
@@ -65,15 +67,18 @@ hal/src/hal_usart_sync.o \
 hpl/gclk/hpl_gclk.o \
 hal/src/hal_init.o \
 samd21a/gcc/system_samd21.o \
-examples/driver_examples.o \
-driver_init.o \
 hpl/sercom/hpl_sercom.o \
 hal/src/hal_gpio.o \
 hal/utils/src/utils_event.o \
 hal/src/hal_sleep.o \
 atmel_start.o \
 hal/src/hal_atomic.o \
+src/cf/forth.o \
+src/cf/atsamdx1/usart_gateway.o \
 main.o
+
+# examples/driver_examples.o \
+# driver_init.o \
 
 OBJS_AS_ARGS +=  \
 "hal/src/hal_io.o" \
@@ -91,15 +96,18 @@ OBJS_AS_ARGS +=  \
 "hpl/gclk/hpl_gclk.o" \
 "hal/src/hal_init.o" \
 "samd21a/gcc/system_samd21.o" \
-"examples/driver_examples.o" \
-"driver_init.o" \
 "hpl/sercom/hpl_sercom.o" \
 "hal/src/hal_gpio.o" \
 "hal/utils/src/utils_event.o" \
 "hal/src/hal_sleep.o" \
 "atmel_start.o" \
 "hal/src/hal_atomic.o" \
+"src/cf/forth.o" \
+"src/cf/atsamdx1/usart_gateway.o" \
 "main.o"
+
+# "examples/driver_examples.o" \
+# "driver_init.o" \
 
 # List the dependency files
 DEPS := $(OBJS:%.o=%.d)
@@ -119,16 +127,19 @@ DEPS_AS_ARGS +=  \
 "hpl/gclk/hpl_gclk.d" \
 "hal/src/hal_init.d" \
 "hal/src/hal_usart_sync.d" \
-"driver_init.d" \
 "samd21a/gcc/system_samd21.d" \
-"examples/driver_examples.d" \
 "hal/src/hal_sleep.d" \
 "hpl/sercom/hpl_sercom.d" \
 "hal/utils/src/utils_event.d" \
 "hal/src/hal_atomic.d" \
 "hpl/pm/hpl_pm.d" \
 "atmel_start.d" \
+"src/cf/forth.d" \
+"src/cf/atsamdx1/usart_gateway.d" \
 "main.d"
+
+# "driver_init.d" \
+# "examples/driver_examples.d" \
 
 OUTPUT_FILE_NAME :=AtmelStart
 QUOTE := "
@@ -176,7 +187,7 @@ $(OUTPUT_FILE_PATH): $(OBJS)
 	@echo ARM/GNU C Compiler
 	$(QUOTE)arm-none-eabi-gcc$(QUOTE) -x c -mthumb -DDEBUG -Os -ffunction-sections -mlong-calls -g3 $(CFLAGS) -c -std=gnu99 \
 -D__SAMD21G18A__ -mcpu=cortex-m0plus  \
--I"../" -I"../config" -I"../examples" -I"../src" -I"../hal/include" -I"../hal/utils/include" -I"../hpl/core" -I"../hpl/dmac" -I"../hpl/gclk" -I"../hpl/pm" -I"../hpl/port" -I"../hpl/sercom" -I"../hpl/sysctrl" -I"../hri" -I"../" -I"../CMSIS/Include" -I"../samd21a/include"  \
+-I"../" -I"../config" -I"../examples" -I"../src" -I"../src/cf" -I"../src/cf/atsamdx1" -I"../hal/include" -I"../hal/utils/include" -I"../hpl/core" -I"../hpl/dmac" -I"../hpl/gclk" -I"../hpl/pm" -I"../hpl/port" -I"../hpl/sercom" -I"../hpl/sysctrl" -I"../hri" -I"../" -I"../CMSIS/Include" -I"../samd21a/include"  \
 -MD -MP -MF "$(@:%.o=%.d)" -MT"$(@:%.o=%.d)" -MT"$(@:%.o=%.o)"  -o "$@" "$<"
 	@echo Finished building: $<
 
@@ -185,7 +196,7 @@ $(OUTPUT_FILE_PATH): $(OBJS)
 	@echo ARM/GNU Assembler
 	$(QUOTE)arm-none-eabi-as$(QUOTE) -x c -mthumb -DDEBUG -Os -ffunction-sections -mlong-calls -g3 $(CFLAGS) -c -std=gnu99 \
 -D__SAMD21G18A__ -mcpu=cortex-m0plus  \
--I"../" -I"../config" -I"../examples" -I"../src" -I"../hal/include" -I"../hal/utils/include" -I"../hpl/core" -I"../hpl/dmac" -I"../hpl/gclk" -I"../hpl/pm" -I"../hpl/port" -I"../hpl/sercom" -I"../hpl/sysctrl" -I"../hri" -I"../" -I"../CMSIS/Include" -I"../samd21a/include"  \
+-I"../" -I"../config" -I"../examples" -I"../src" -I"../src/cf" -I"../src/cf/atsamdx1" -I"../hal/include" -I"../hal/utils/include" -I"../hpl/core" -I"../hpl/dmac" -I"../hpl/gclk" -I"../hpl/pm" -I"../hpl/port" -I"../hpl/sercom" -I"../hpl/sysctrl" -I"../hri" -I"../" -I"../CMSIS/Include" -I"../samd21a/include"  \
 -MD -MP -MF "$(@:%.o=%.d)" -MT"$(@:%.o=%.d)" -MT"$(@:%.o=%.o)"  -o "$@" "$<"
 	@echo Finished building: $<
 
@@ -194,7 +205,7 @@ $(OUTPUT_FILE_PATH): $(OBJS)
 	@echo ARM/GNU Preprocessing Assembler
 	$(QUOTE)arm-none-eabi-gcc$(QUOTE) -x c -mthumb -DDEBUG -Os -ffunction-sections -mlong-calls -g3 $(CFLAGS) -c -std=gnu99 \
 -D__SAMD21G18A__ -mcpu=cortex-m0plus  \
--I"../" -I"../config" -I"../examples" -I"../src" -I"../hal/include" -I"../hal/utils/include" -I"../hpl/core" -I"../hpl/dmac" -I"../hpl/gclk" -I"../hpl/pm" -I"../hpl/port" -I"../hpl/sercom" -I"../hpl/sysctrl" -I"../hri" -I"../" -I"../CMSIS/Include" -I"../samd21a/include"  \
+-I"../" -I"../config" -I"../examples" -I"../src" -I"../src/cf" -I"../src/cf/atsamdx1" -I"../hal/include" -I"../hal/utils/include" -I"../hpl/core" -I"../hpl/dmac" -I"../hpl/gclk" -I"../hpl/pm" -I"../hpl/port" -I"../hpl/sercom" -I"../hpl/sysctrl" -I"../hri" -I"../" -I"../CMSIS/Include" -I"../samd21a/include"  \
 -MD -MP -MF "$(@:%.o=%.d)" -MT"$(@:%.o=%.d)" -MT"$(@:%.o=%.o)"  -o "$@" "$<"
 	@echo Finished building: $<
 
