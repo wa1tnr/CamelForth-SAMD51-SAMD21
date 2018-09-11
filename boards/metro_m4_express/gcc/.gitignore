@@ -1,0 +1,16 @@
+AtmelStart.bin
+AtmelStart.eep
+AtmelStart.elf
+AtmelStart.hex
+AtmelStart.lss
+AtmelStart.map
+atmel_start.d
+atmel_start.o
+gcc/gcc/
+gcc/system_samd51.d
+gcc/system_samd51.o
+hal/
+hpl/
+main.d
+main.o
+src/
