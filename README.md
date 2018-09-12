@@ -1,4 +1,6 @@
-# CamelForth-SAMD51
+# CamelForth-SAMD51+SAMD21
+    
+NEW REPOSITORY
 
 # NEWS
 
@@ -13,9 +15,13 @@ Misc: Brad R @ Friday 15 December 2017 - 14:38:49
 
 # Status
 
-CamelForth is now running on ATSAMD21G18A.
+CamelForth is now running on ATSAMD21G18A SAMD21
 
-CamelForth is running well on ATSAMD51J19A.
+Adafruit Feather M0 Express.
+
+CamelForth is running well on ATSAMD51J19A SAMD51
+
+Adafruit Metro M4 Express.
 
 This repository is a rebuild of all sources, such that as
 few changes as practical were made to CamelForth source
@@ -24,19 +30,28 @@ code files.
 # Build Environment
 
 This is an Atmel Start based project for Atmel ATSAMD51J19A,
-and runs on the Adafruit Metro M4 Express target board (with
+and now, also for ATSAMD21G18A, and runs on the Adafruit
+Metro M4 Express and Feather M0 Express target boards (with
 plans for additional boards).
 
-Pinmuxing is for that specific board.
+Pinmuxing is for these two specific boards.
 
 A recent (08 September 2018) generation of source Atmel Start
 project pack (*atzip) was created to ensure compatibility with
-the Atmel Start online configuration tool.
+the Atmel Start online configuration tool, for SAMD51.
 
-The program leverages the USART on the SAMD51.  The reference
-environment is a host PC, running Debian GNU/Linux 9.5, which
-talks to the Adafruit SAMD51 target via Silabs CP2104.  The
-CP2104 is an USB to UART gateway chip.
+SAMD21 .atzip is a bit older, and has similar scope (see 'saw-saw'
+here, for example, and ainsuMtxd21-exp repositories).
+
+The program leverages the USART on the SAMD51 (and now, SAMD21;
+will refrain from tandem-mentioning of both, in what follows;
+the port to SAMD21 took an afternoon and required almost no
+changes -- see the edit history in git or on github for
+details).
+
+The reference environment is a host PC, running Debian
+GNU/Linux 9.5, which talks to the Adafruit SAMD51 target via
+Silabs CP2104.  The CP2104 is an USB to UART gateway chip.
 
 The Adafruit PiUART is the reference implementation for CP2104.
 
@@ -146,10 +161,10 @@ over the bootloader).
 Bossac may be in more than one version in the Arduino IDE
 sub-tree; 1.8.0-48 was present and was used, here.
 
-Tue Sep 11 03:09:53 UTC 2018
+Wed Sep 12 02:26:01 UTC 2018
 
 On branch camelforth
 
- $ cat ./README.md | sed 151q | md5sum
+ $ cat ./README.md | sed 168q | md5sum
 
-32d3540cbb28dffd4cbfe880ca492638
+aec91e25178a14beadb278b89348db9f
