@@ -1,0 +1,16 @@
+AtmelStart.bin
+AtmelStart.eep
+AtmelStart.elf
+AtmelStart.hex
+AtmelStart.lss
+AtmelStart.map
+atmel_start.d
+atmel_start.o
+driver_init.d
+driver_init.o
+examples/
+hal/
+hpl/
+main.d
+main.o
+samd21a/

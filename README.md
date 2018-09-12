@@ -13,6 +13,8 @@ Misc: Brad R @ Friday 15 December 2017 - 14:38:49
 
 # Status
 
+CamelForth is now running on ATSAMD21G18A.
+
 CamelForth is running well on ATSAMD51J19A.
 
 This repository is a rebuild of all sources, such that as
