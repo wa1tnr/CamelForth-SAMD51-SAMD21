@@ -73,7 +73,7 @@ unsigned char ROMDICT[1024];
 #include "tivaio.inc"
 #endif
 
-#ifdef SAMD51
+#ifdef SAMD21
 #include "atsamdx1.inc"
 #endif
 

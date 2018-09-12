@@ -1,14 +1,15 @@
-/****h* camelforth/samd51.inc
+/****h* camelforth/atsamdx1/atsamdx1.inc
  *
  * from:
  ****h* camelforth/tivaio.c
  *
  * NAME
- *  samd51.inc
+ *  atsamdx1.inc
  * DESCRIPTION
  *  Terminal I/O, and main entry point for
- *  CamelForth in C, for the ATSAMD51J19A
- *  Adafruit Metro M4 Express target board.
+ *  CamelForth in C, for the ATSAMD51J19A and ATSAMD21G18A
+ *  Adafruit Metro M4 Express target board,
+ *  Adafruit Feather M0 Express target board.
  * SYNOPSIS
  *  Provides the functions
  *      void putch(char c)      write one character to terminal
@@ -16,7 +17,7 @@
  *      int getquery(void)      return true if keyboard char available
  *      void initTermios(void)  NOT IMPLEMENTED - configure terminal for Forth
  *      void resetTermios(void) NOT IMPLEMENTED - reset terminal configuration, if req'd
- *      void camelforth(void)   main entry point for SAMD51.   UPSTREAM: int main(void)
+ *      void camelforth(void)   main entry point for SAMDx1.   UPSTREAM: int main(void)
  *
  * AUTHORS
  *  Brad Rodriguez
@@ -115,7 +116,7 @@ void interpreter(void);         /* forward reference */
 
 void camelforth(void) {
     while (1) {     /* loop in case interpreter() ever terminates */
-    print_this("\nCamelForth in C - SAMD51 testing\n", 34);
+    print_this("\nCamelForth in C - SAMDx1 testing\n", 34);
         interpreter();
     }
 }
