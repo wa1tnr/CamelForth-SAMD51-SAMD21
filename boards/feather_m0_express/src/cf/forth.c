@@ -1,5 +1,4 @@
 /****h* camelforth/forth.c
- * patched file: tested only on ATSAMD51J19A 2018 September wa1tnr
  * NAME
  *  forth.c
  * DESCRIPTION
@@ -879,25 +878,15 @@ THREAD(spaces) = { Fenter, Tdup, Tqbranch, OFFSET(5), Tspace, Toneminus,
                 Tbranch, OFFSET(-6), Tdrop, Texit };
 
 #ifdef LINUX
-#define OLD_ACCEPT_SEP_18
 #define NEWLINE 0x0a
 #define BACKSPACE 0x7f      /* key returned for backspace */
 #define BACKUP  8           /* what to emit for backspace */
-// #else
-// #define NEWLINE 0x0d
-// #define BACKSPACE 8         /* key returned for backspace */
-// #define BACKUP  8           /* what to emit for backspace */
-// #endif
 #else
-#undef OLD_ACCEPT_SEP_18
 #define NEWLINE 0x0d
-// #define BACKSPACE 8         /* key returned for backspace */
-#define BACKSPACE 0x7f      /* key returned for backspace */
+#define BACKSPACE 8         /* key returned for backspace */
 #define BACKUP  8           /* what to emit for backspace */
-#define BKSPC 32            /* rubout */
 #endif
                 
-#ifdef OLD_ACCEPT_SEP_18
 THREAD(accept) = { Fenter, Tover, Tplus, Toneminus, Tover,
 /* 1 */  Tkey, Tdup, Tlit, LIT(NEWLINE), Tnotequal, Tqbranch, OFFSET(27 /*5*/),
          Tdup, Tlit, LIT(BACKSPACE), Tequal, Tqbranch, OFFSET(12 /*3*/),
@@ -906,20 +895,6 @@ THREAD(accept) = { Fenter, Tover, Tplus, Toneminus, Tover,
 /* 3 */  Tdup, Temit, Tover, Tcstore, Toneplus, Tover, Tumin,
 /* 4 */  Tbranch, OFFSET(-32 /*1*/),
 /* 5 */  Tdrop, Tnip, Tswap, Tminus, Texit };
-#endif // #ifdef OLD_ACCEPT_SEP_18
-
-#ifndef OLD_ACCEPT_SEP_18
-THREAD(accept) = { Fenter, Tover, Tplus, Toneminus, Tover,
-/* 1 */  Tkey, Tdup, Tlit, LIT(NEWLINE), Tnotequal, Tqbranch, OFFSET(33 /*5*/), /* was 27 */
-         Tdup, Tlit, LIT(BACKSPACE), Tequal, Tqbranch, OFFSET(18 /*3*/), /* was 12 */
-         Tdrop, Tlit, LIT(BACKUP), Temit, Tlit, LIT(BKSPC), Temit,
-         Tlit, LIT(BACKUP), Temit,
-         Toneminus, Ttor, Tover, Trfrom, 
-         Tumax, Tbranch, OFFSET(8 /*4*/),
-/* 3 */  Tdup, Temit, Tover, Tcstore, Toneplus, Tover, Tumin,
-/* 4 */  Tbranch, OFFSET(-38 /*1*/), /* was -32 */
-/* 5 */  Tdrop, Tnip, Tswap, Tminus, Texit };
-#endif // #ifndef OLD_ACCEPT_SEP_18
 
 THREAD(type) = { Fenter, Tqdup, Tqbranch, OFFSET(12 /*4*/),
          Tover, Tplus, Tswap, Txdo,
@@ -1066,12 +1041,12 @@ THREAD(evaluate) = { Fenter, Tticksource, Ttwofetch, Ttor, Ttor,
         Trfrom, Ttoin, Tstore, Trfrom, Trfrom,
         Tticksource, Ttwostore, Texit };
 
-const char okprompt[] = "\003ok\n";
+const char okprompt[] = "\003ok ";
 
 THREAD(quit) = { Fenter, Tl0, Tlp, Tstore,
         Tr0, Trpstore, Tzero, Tstate, Tstore,
  /*1*/  Ttib, Tdup, Ttibsize, Taccept, Tspace, Tinterpret,
-        Tspace, Tstate, Tfetch, Tzeroequal, Tqbranch, OFFSET(5 /*2*/),
+        Tcr, Tstate, Tfetch, Tzeroequal, Tqbranch, OFFSET(5 /*2*/),
         Tlit, okprompt, Ticount, Titype,
  /*2*/  Tbranch, OFFSET(-17 /*1*/) };     // never exits
 
