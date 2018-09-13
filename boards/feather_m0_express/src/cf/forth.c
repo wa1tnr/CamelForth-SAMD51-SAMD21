@@ -1066,12 +1066,12 @@ THREAD(evaluate) = { Fenter, Tticksource, Ttwofetch, Ttor, Ttor,
         Trfrom, Ttoin, Tstore, Trfrom, Trfrom,
         Tticksource, Ttwostore, Texit };
 
-const char okprompt[] = "\003ok ";
+const char okprompt[] = "\003ok\n";
 
 THREAD(quit) = { Fenter, Tl0, Tlp, Tstore,
         Tr0, Trpstore, Tzero, Tstate, Tstore,
  /*1*/  Ttib, Tdup, Ttibsize, Taccept, Tspace, Tinterpret,
-        Tcr, Tstate, Tfetch, Tzeroequal, Tqbranch, OFFSET(5 /*2*/),
+        Tspace, Tstate, Tfetch, Tzeroequal, Tqbranch, OFFSET(5 /*2*/),
         Tlit, okprompt, Ticount, Titype,
  /*2*/  Tbranch, OFFSET(-17 /*1*/) };     // never exits
 
