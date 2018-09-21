@@ -1,0 +1,32 @@
+Fri Sep 21 14:30:00 UTC 2018
+
+
+ $ git checkout master 
+Switched to branch 'master'
+Your branch is up-to-date with 'gith/master'.
+
+
+ $ git merge camelforth_tada_test_b 
+Updating dc363dc..b07991d
+Fast-forward
+ .gitignore                                  |    1 +
+ AUTHORS                                     |   32 +-
+ .
+ .
+ create mode 100644 doc/branch_history.txt
+
+
+ $ git push origin 
+Total 0 (delta 0), reused 0 (delta 0)
+To /local/path/CamelForth-SAMD51+SAMD21-rmt.d/.git
+   dc363dc..b07991d  master -> master
+
+
+ $ git push gith 
+To https://github.com/wa1tnr/CamelForth-SAMD51-SAMD21.git
+   dc363dc..b07991d  master -> master
+
+ENiD,
+
+
+
