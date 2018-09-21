@@ -1,7 +1,5 @@
-# CamelForth-SAMD51+SAMD21
+# CamelForth-SAMD51-SAMD21
     
-NEW REPOSITORY
-
 # NEWS
 
 CamelForth
@@ -14,6 +12,26 @@ CamelForth in C!
 Misc: Brad R @ Friday 15 December 2017 - 14:38:49
 
 # Status
+
+CamelForth is now running on ATSAMD51J19A SAMD51
+via the USB port - fully interactively.  No USART
+connection is used in the branch(es) supporting
+this configuration.
+
+Initial target for USB was SAMD21; current efforts
+are directed at SAMD51 (Metro M4 Express).  The
+SAMD21 USB version hasn't been properly introduced
+to the public (look in sandboxx repo here for a
+preview).
+
+
+The remainder of this document (see below) has not
+been updated recently, except the last few lines
+(date/time stamp and such).  Information therein
+may not be as reliable (applies elsewhere in another
+branch or repository; there are several).
+
+# OLD NEWS
 
 CamelForth is now running on ATSAMD21G18A SAMD21
 
@@ -161,10 +179,10 @@ over the bootloader).
 Bossac may be in more than one version in the Arduino IDE
 sub-tree; 1.8.0-48 was present and was used, here.
 
-Wed Sep 12 02:26:01 UTC 2018
+Fri Sep 21 13:25:34 UTC 2018
 
-On branch camelforth
+On branch camelforth_tada_test_b
 
- $ cat ./README.md | sed 168q | md5sum
+ $ cat ./README.md | sed 186q | md5sum
 
-aec91e25178a14beadb278b89348db9f
+684bf648442fd2bba3c872f23d4c815d
