@@ -23,6 +23,9 @@ else
 	endif
 endif
 
+CFLAGS = -Wall -Werror -fmax-errors=3
+CFLAGS += -DADAFRUIT_METRO_M4_EXPRESS
+
 # List the subdirectories for creating object files
 SUB_DIRS +=  \
  \
@@ -43,7 +46,11 @@ hpl/oscctrl \
 gcc/gcc \
 hpl/usb \
 hpl/core \
+src \
+src/cf \
+src/cf/atsamdx1 \
 hpl/cmcc
+
 
 # List the object files
 OBJS +=  \
@@ -60,7 +67,7 @@ hpl/gclk/hpl_gclk.o \
 hal/utils/src/utils_list.o \
 gcc/system_samd51.o \
 hal/utils/src/utils_assert.o \
-usb_start.o \
+usb_support.o \
 hpl/oscctrl/hpl_oscctrl.o \
 hpl/mclk/hpl_mclk.o \
 hpl/ramecc/hpl_ramecc.o \
@@ -68,7 +75,6 @@ usb/usb_protocol.o \
 hal/src/hal_init.o \
 gcc/gcc/startup_samd51.o \
 hal/src/hal_usb_device.o \
-main.o \
 hpl/osc32kctrl/hpl_osc32kctrl.o \
 examples/driver_examples.o \
 driver_init.o \
@@ -79,7 +85,14 @@ hal/src/hal_cache.o \
 hpl/cmcc/hpl_cmcc.o \
 atmel_start.o \
 usb/device/usbdc.o \
-hal/src/hal_atomic.o
+hal/src/hal_atomic.o \
+pins.o \
+src/cf/forth.o \
+main.o
+
+# src/cf/atsamdx1/usb_gateway.o \
+# usb_start.o \
+
 
 OBJS_AS_ARGS +=  \
 "hal/src/hal_io.o" \
@@ -95,7 +108,7 @@ OBJS_AS_ARGS +=  \
 "hal/utils/src/utils_list.o" \
 "gcc/system_samd51.o" \
 "hal/utils/src/utils_assert.o" \
-"usb_start.o" \
+"usb_support.o" \
 "hpl/oscctrl/hpl_oscctrl.o" \
 "hpl/mclk/hpl_mclk.o" \
 "hpl/ramecc/hpl_ramecc.o" \
@@ -103,7 +116,6 @@ OBJS_AS_ARGS +=  \
 "hal/src/hal_init.o" \
 "gcc/gcc/startup_samd51.o" \
 "hal/src/hal_usb_device.o" \
-"main.o" \
 "hpl/osc32kctrl/hpl_osc32kctrl.o" \
 "examples/driver_examples.o" \
 "driver_init.o" \
@@ -114,7 +126,13 @@ OBJS_AS_ARGS +=  \
 "hpl/cmcc/hpl_cmcc.o" \
 "atmel_start.o" \
 "usb/device/usbdc.o" \
-"hal/src/hal_atomic.o"
+"hal/src/hal_atomic.o" \
+"pins.o" \
+"src/cf/forth.o" \
+"main.o"
+
+# "src/cf/atsamdx1/usb_gateway.o" \
+# "usb_start.o" \
 
 # List the dependency files
 DEPS := $(OBJS:%.o=%.d)
@@ -131,7 +149,7 @@ DEPS_AS_ARGS +=  \
 "gcc/system_samd51.d" \
 "hal/utils/src/utils_list.d" \
 "hpl/cmcc/hpl_cmcc.d" \
-"usb_start.d" \
+"usb_support.d" \
 "hal/utils/src/utils_assert.d" \
 "hal/src/hal_delay.d" \
 "hpl/core/hpl_init.d" \
@@ -144,7 +162,6 @@ DEPS_AS_ARGS +=  \
 "hpl/mclk/hpl_mclk.d" \
 "driver_init.d" \
 "hpl/osc32kctrl/hpl_osc32kctrl.d" \
-"main.d" \
 "examples/driver_examples.d" \
 "hal/src/hal_cache.d" \
 "hal/src/hal_sleep.d" \
@@ -152,7 +169,13 @@ DEPS_AS_ARGS +=  \
 "hal/src/hal_atomic.d" \
 "usb/device/usbdc.d" \
 "hpl/oscctrl/hpl_oscctrl.d" \
-"atmel_start.d"
+"atmel_start.d" \
+"pins.d" \
+"src/cf/forth.d" \
+"main.d"
+
+# "src/cf/atsamdx1/usb_gateway.d" \
+# "usb_start.d" \
 
 OUTPUT_FILE_NAME :=AtmelStart
 QUOTE := "
@@ -198,27 +221,27 @@ $(OUTPUT_FILE_PATH): $(OBJS)
 %.o: %.c
 	@echo Building file: $<
 	@echo ARM/GNU C Compiler
-	$(QUOTE)arm-none-eabi-gcc$(QUOTE) -x c -mthumb -DDEBUG -Os -ffunction-sections -mlong-calls -g3 -Wall -c -std=gnu99 \
+	$(QUOTE)arm-none-eabi-gcc$(QUOTE) -x c -mthumb -DDEBUG -Os -ffunction-sections -mlong-calls -g3 $(CFLAGS)       -c -std=gnu99 \
 -D__SAMD51J19A__ -mcpu=cortex-m4 -mfloat-abi=softfp -mfpu=fpv4-sp-d16 \
--I"../" -I"../config" -I"../examples" -I"../hal/include" -I"../hal/utils/include" -I"../hpl/cmcc" -I"../hpl/core" -I"../hpl/dmac" -I"../hpl/gclk" -I"../hpl/mclk" -I"../hpl/osc32kctrl" -I"../hpl/oscctrl" -I"../hpl/pm" -I"../hpl/port" -I"../hpl/ramecc" -I"../hpl/usb" -I"../hri" -I"../" -I"../config" -I"../usb" -I"../usb/class/cdc" -I"../usb/class/cdc/device" -I"../usb/device" -I"../" -I"../CMSIS/Include" -I"../include"  \
+-I"../" -I"../config" -I"../examples" -I"../src" -I"../src/cf" -I"../src/cf/atsamdx1" -I"../hal/include" -I"../hal/utils/include" -I"../hpl/cmcc" -I"../hpl/core" -I"../hpl/dmac" -I"../hpl/gclk" -I"../hpl/mclk" -I"../hpl/osc32kctrl" -I"../hpl/oscctrl" -I"../hpl/pm" -I"../hpl/port" -I"../hpl/ramecc" -I"../hpl/usb" -I"../hri" -I"../" -I"../config" -I"../usb" -I"../usb/class/cdc" -I"../usb/class/cdc/device" -I"../usb/device" -I"../" -I"../CMSIS/Include" -I"../include"  \
 -MD -MP -MF "$(@:%.o=%.d)" -MT"$(@:%.o=%.d)" -MT"$(@:%.o=%.o)"  -o "$@" "$<"
 	@echo Finished building: $<
 
 %.o: %.s
 	@echo Building file: $<
 	@echo ARM/GNU Assembler
-	$(QUOTE)arm-none-eabi-as$(QUOTE) -x c -mthumb -DDEBUG -Os -ffunction-sections -mlong-calls -g3 -Wall -c -std=gnu99 \
+	$(QUOTE)arm-none-eabi-as$(QUOTE) -x c -mthumb -DDEBUG -Os -ffunction-sections -mlong-calls -g3 $(CFLAGS)       -c -std=gnu99 \
 -D__SAMD51J19A__ -mcpu=cortex-m4 -mfloat-abi=softfp -mfpu=fpv4-sp-d16 \
--I"../" -I"../config" -I"../examples" -I"../hal/include" -I"../hal/utils/include" -I"../hpl/cmcc" -I"../hpl/core" -I"../hpl/dmac" -I"../hpl/gclk" -I"../hpl/mclk" -I"../hpl/osc32kctrl" -I"../hpl/oscctrl" -I"../hpl/pm" -I"../hpl/port" -I"../hpl/ramecc" -I"../hpl/usb" -I"../hri" -I"../" -I"../config" -I"../usb" -I"../usb/class/cdc" -I"../usb/class/cdc/device" -I"../usb/device" -I"../" -I"../CMSIS/Include" -I"../include"  \
+-I"../" -I"../config" -I"../examples" -I"../src" -I"../src/cf" -I"../src/cf/atsamdx1" -I"../hal/include" -I"../hal/utils/include" -I"../hpl/cmcc" -I"../hpl/core" -I"../hpl/dmac" -I"../hpl/gclk" -I"../hpl/mclk" -I"../hpl/osc32kctrl" -I"../hpl/oscctrl" -I"../hpl/pm" -I"../hpl/port" -I"../hpl/ramecc" -I"../hpl/usb" -I"../hri" -I"../" -I"../config" -I"../usb" -I"../usb/class/cdc" -I"../usb/class/cdc/device" -I"../usb/device" -I"../" -I"../CMSIS/Include" -I"../include"  \
 -MD -MP -MF "$(@:%.o=%.d)" -MT"$(@:%.o=%.d)" -MT"$(@:%.o=%.o)"  -o "$@" "$<"
 	@echo Finished building: $<
 
 %.o: %.S
 	@echo Building file: $<
 	@echo ARM/GNU Preprocessing Assembler
-	$(QUOTE)arm-none-eabi-gcc$(QUOTE) -x c -mthumb -DDEBUG -Os -ffunction-sections -mlong-calls -g3 -Wall -c -std=gnu99 \
+	$(QUOTE)arm-none-eabi-gcc$(QUOTE) -x c -mthumb -DDEBUG -Os -ffunction-sections -mlong-calls -g3 $(CFLAGS)       -c -std=gnu99 \
 -D__SAMD51J19A__ -mcpu=cortex-m4 -mfloat-abi=softfp -mfpu=fpv4-sp-d16 \
--I"../" -I"../config" -I"../examples" -I"../hal/include" -I"../hal/utils/include" -I"../hpl/cmcc" -I"../hpl/core" -I"../hpl/dmac" -I"../hpl/gclk" -I"../hpl/mclk" -I"../hpl/osc32kctrl" -I"../hpl/oscctrl" -I"../hpl/pm" -I"../hpl/port" -I"../hpl/ramecc" -I"../hpl/usb" -I"../hri" -I"../" -I"../config" -I"../usb" -I"../usb/class/cdc" -I"../usb/class/cdc/device" -I"../usb/device" -I"../" -I"../CMSIS/Include" -I"../include"  \
+-I"../" -I"../config" -I"../examples" -I"../src" -I"../src/cf" -I"../src/cf/atsamdx1" -I"../hal/include" -I"../hal/utils/include" -I"../hpl/cmcc" -I"../hpl/core" -I"../hpl/dmac" -I"../hpl/gclk" -I"../hpl/mclk" -I"../hpl/osc32kctrl" -I"../hpl/oscctrl" -I"../hpl/pm" -I"../hpl/port" -I"../hpl/ramecc" -I"../hpl/usb" -I"../hri" -I"../" -I"../config" -I"../usb" -I"../usb/class/cdc" -I"../usb/class/cdc/device" -I"../usb/device" -I"../" -I"../CMSIS/Include" -I"../include"  \
 -MD -MP -MF "$(@:%.o=%.d)" -MT"$(@:%.o=%.d)" -MT"$(@:%.o=%.o)"  -o "$@" "$<"
 	@echo Finished building: $<
 
@@ -242,6 +265,7 @@ install:
 	@echo "[0;1;32;40m./scripts/_bossac_local.sh [0;1;36;40m./AtmelStart.bin[0m"
 	@sleep 1
 	@./scripts/_bossac_local.sh ./AtmelStart.bin
+	# use 'make checkout' to tell git no changes to AtmelStart.*
 
 clean:
 	rm -f $(OBJS_AS_ARGS)
