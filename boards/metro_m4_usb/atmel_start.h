@@ -6,12 +6,13 @@ extern "C" {
 #endif
 
 #include "driver_init.h"
-#include "usb_start.h"
+// #include "usb_start.h"
+#include "usb_support.h"
 
 /**
  * Initializes MCU, drivers and middleware in the project
  **/
-void atmel_start_init(void);
+    void atmel_start_init(void);
 
 #ifdef __cplusplus
 }
