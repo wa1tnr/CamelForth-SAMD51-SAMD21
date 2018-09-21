@@ -1,0 +1,7 @@
+Fri Sep 21 13:22:56 UTC 2018
+
+ $ git status | egrep On
+On branch master
+ $ git checkout -b camelforth_tada_test_b
+Switched to a new branch 'camelforth_tada_test_b'
+ $ 
