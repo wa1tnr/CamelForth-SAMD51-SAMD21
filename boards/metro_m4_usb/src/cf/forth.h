@@ -33,8 +33,10 @@
 // #define INTERPRETER_ONLY       /* to omit Forth compiler words */
 
 /* define only one of the following */
-#define LINUX                   /* for development under Linux */
+// #define LINUX                  /* for development under Linux */
 // #define TIVA_C                 /* for use with TI TM4C12x */
+#define SAMDX1                    /* for use with Adafruit Feather M0 Express */
+#define USB_IFACE                 /* only some implementations */
 
 /* 
  * CONFIGURATION PARAMETERS
