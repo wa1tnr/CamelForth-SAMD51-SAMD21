@@ -72,6 +72,9 @@ unsigned char ROMDICT[1024];
 #include "tivaio.inc"
 #endif
 
+#ifdef SAMDX1
+#include "atsamdx1.inc"
+#endif
 
 /* 
  * RUN-TIME FUNCTIONS FOR DEFINED WORDS
