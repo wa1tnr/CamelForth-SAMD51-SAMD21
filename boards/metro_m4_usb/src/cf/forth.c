@@ -72,6 +72,9 @@ unsigned char ROMDICT[1024];
 #include "tivaio.inc"
 #endif
 
+#ifdef SAMDX1
+#include "atsamdx1.inc"
+#endif
 
 /* 
  * RUN-TIME FUNCTIONS FOR DEFINED WORDS
@@ -598,7 +601,8 @@ CODE(dots) {    /* print stack, for testing */
     unsigned int *p;
     p = &pstack[PSTACKSIZE-2];      /* deepest element on stack */
     printf("\n%8x:", (unsigned int)p);
-    while (p >= psp) printf(" %8x", *p--);
+ // while (p >= psp) printf(" %8x", *p--); // crashes the interpreter - wa1tnr 10 Sep 2018
+    while (p >= psp) { printf(" %8x", *p--); }
 }
 
 CODE(dump) {   /* adr n -- */
