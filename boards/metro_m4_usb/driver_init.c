@@ -128,7 +128,7 @@ void TARGET_USB_init(void)
 
 void system_init(void)
 {
-	init_mcu();
+	// init_mcu();
 
 	// GPIO on PA16
 
