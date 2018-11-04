@@ -1,0 +1,6 @@
+Sun Nov  4 23:51:53 UTC 2018
+
+Basic compilation requirements satisfied.
+
+TODO: linker script that skips over Adafruit bootloader
+
