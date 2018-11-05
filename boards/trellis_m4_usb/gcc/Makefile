@@ -24,7 +24,7 @@ else
 endif
 
 CFLAGS = -Wall -Werror -fmax-errors=3
-CFLAGS += -DADAFRUIT_METRO_M4_EXPRESS
+CFLAGS += -DADAFRUIT_TRELLIS_M4_EXPRESS
 
 # List the subdirectories for creating object files
 SUB_DIRS +=  \
@@ -170,6 +170,7 @@ vpath %.S ../
 all: $(SUB_DIRS) $(OUTPUT_FILE_PATH)
 
 # Linker target
+# -T"../samd51a/gcc/gcc/samd51g19a_flash.ld" \
 
 $(OUTPUT_FILE_PATH): $(OBJS)
 	@echo Building target: $@
@@ -177,7 +178,7 @@ $(OUTPUT_FILE_PATH): $(OBJS)
 	$(QUOTE)arm-none-eabi-gcc$(QUOTE) -o $(OUTPUT_FILE_NAME).elf $(OBJS_AS_ARGS) -Wl,--start-group -lm -Wl,--end-group -mthumb \
 -Wl,-Map="$(OUTPUT_FILE_NAME).map" --specs=nano.specs -Wl,--gc-sections -mcpu=cortex-m4 \
  \
--T"../samd51a/gcc/gcc/samd51g19a_flash.ld" \
+-T"../samd51a/gcc/gcc/samd51g19a_flash_with_bootloader.ld" \
 -L"../samd51a/gcc/gcc"
 	@echo Finished building target: $@
 
@@ -233,6 +234,22 @@ endif
 
 $(SUB_DIRS):
 	$(MK_DIR) "$@"
+
+install:
+	@echo -n "[0;1;33;40msleeping 5 seconds.."
+	@sleep 5
+	@echo    ".  Done.[0m"
+	@sleep 1
+	# running target '[0;1;34mmake install[0m' now
+	@sleep 1
+	@echo "[0;1;32;40m./scripts/_bossac_local.sh [0;1;36;40m./AtmelStart.bin[0m"
+	@sleep 1
+	@./scripts/_bossac_local.sh ./AtmelStart.bin
+	# use 'make checkout' to tell git no changes to AtmelStart.*
+	# once it is programmed, that is. ;)
+
+cleanup:
+	rm -rf examples hal hpl samd51a usb
 
 clean:
 	rm -f $(OBJS_AS_ARGS)
