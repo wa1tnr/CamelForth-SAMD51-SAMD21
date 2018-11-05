@@ -6,6 +6,7 @@ int main(void)
 	atmel_start_init();
 
 	/* Replace with your application code */
+        cdcd_acm_example();
 	while (1) {
 	}
 }
