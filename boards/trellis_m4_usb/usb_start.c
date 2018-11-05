@@ -8,6 +8,16 @@
 #include "atmel_start.h"
 #include "usb_start.h"
 
+// local mods, two new includes:
+#include <stdio.h>
+#include <string.h>
+
+// local mods, one new define:
+#define BUFFLEN 128
+
+// local mods, one new char array:
+char tempstring[BUFFLEN];
+
 #if CONF_USBD_HS_SP
 static uint8_t single_desc_bytes[] = {
     /* Device descriptors and Configuration descriptors list. */
@@ -37,6 +47,18 @@ static uint32_t usbd_cdc_buffer[CDCD_ECHO_BUF_SIZ / 4];
 /** Ctrl endpoint buffer */
 static uint8_t ctrl_buffer[64];
 
+// local mods, demo - two new functions:
+void copy_sentence(void) {
+    strcpy(tempstring, "This ought to do it.  ");
+}
+
+void very_delayed(void) {
+    for (volatile int i = 2031; i>0; i--) {
+        for (volatile int j = 2031; j>0; j--) {
+        }
+    }
+}
+
 /**
  * \brief Callback invoked when bulk OUT data received
  */
@@ -55,6 +77,12 @@ static bool usb_device_cb_bulk_in(const uint8_t ep, const enum usb_xfer_code rc,
 {
 	/* Echo data. */
 	cdcdf_acm_read((uint8_t *)usbd_cdc_buffer, sizeof(usbd_cdc_buffer));
+
+        // local mods - four new lines of code added to this function:
+        very_delayed();
+        copy_sentence();
+        cdcdf_acm_write((uint8_t *) tempstring, strlen(tempstring));
+        very_delayed(); very_delayed(); very_delayed();
 
 	/* No error. */
 	return false;
