@@ -27,13 +27,14 @@
 #define GPIO_PIN_FUNCTION_M 12
 #define GPIO_PIN_FUNCTION_N 13
 
-// Trellis M4 D- is PA25
+// Trellis M4 D- is PA24 - same on ItsyBitsyM4
 #define PA24 GPIO(GPIO_PORTA, 24)
 
-// Trellis M4 D+ is PA25
+// Trellis M4 D+ is PA25 - same on ItsyBitsyM4
 #define PA25 GPIO(GPIO_PORTA, 25)
 
 // Trellis M4 NeoPixel is PA27 - 3V unshifted - goes to a level shifter
+// PA27 not connected (at all) on ItsyBitsyM4, but is present on the MCU ;)
 #define PA27 GPIO(GPIO_PORTA, 27)
 
 // Trellis M4 DotStar Clock - PB02
