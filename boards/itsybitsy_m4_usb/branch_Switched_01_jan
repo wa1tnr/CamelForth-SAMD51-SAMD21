@@ -1,0 +1,12 @@
+* camelforth_tada_test_d
+ $ git checkout -b camelf_tada_tst_d_itsym4-a-
+Switched to a new branch 'camelf_tada_tst_d_itsym4-a-'
+ $ date
+Wed Jan  1 01:20:49 UTC 2020
+
+Narrative: camelforth_tada_test_d was current.
+Created new branch for the ItsyBitsyM4 port, on
+01 January 2020.
+
+Used trellis m4 branch as the model for these files.
+
