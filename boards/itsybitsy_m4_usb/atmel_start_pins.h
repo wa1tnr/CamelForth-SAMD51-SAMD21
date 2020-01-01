@@ -27,10 +27,19 @@
 #define GPIO_PIN_FUNCTION_M 12
 #define GPIO_PIN_FUNCTION_N 13
 
+// Trellis M4 D- is PA25
 #define PA24 GPIO(GPIO_PORTA, 24)
+
+// Trellis M4 D+ is PA25
 #define PA25 GPIO(GPIO_PORTA, 25)
+
+// Trellis M4 NeoPixel is PA27 - 3V unshifted - goes to a level shifter
 #define PA27 GPIO(GPIO_PORTA, 27)
+
+// Trellis M4 DotStar Clock - PB02
 #define PB02 GPIO(GPIO_PORTB, 2)
+
+// Trellis M4 DotStar Data - PB03
 #define PB03 GPIO(GPIO_PORTB, 3)
 
 #endif // ATMEL_START_PINS_H_INCLUDED
