@@ -1,6 +1,10 @@
 # CamelForth-SAMD51-SAMD21
-    
+ 
 # NEWS
+Wed Jan  1 03:02:25 UTC 2020
+
+Working: ItsyBitsyM4 variant - no real changes from
+support already available for NeoTrellis M4.
 
 CamelForth
 
