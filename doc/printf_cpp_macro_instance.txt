@@ -1,0 +1,11 @@
+Tue  6 Sep 13:45:40 UTC 2022
+
+   boards/itsybitsy_m4_usb/src/cf/atsamdx1/atsamdx1.inc
+
+Possibly earliest use of this cpp macro (why it was crafted).
+
+(though not itsybitsy_m4_usb board; was developed earlier)
+
+Not proper.  Did not use snprintf.
+
+END.
